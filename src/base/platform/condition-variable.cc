@@ -16,7 +16,7 @@ namespace base {
 
 ConditionVariable::ConditionVariable() {
 #if (V8_OS_FREEBSD || V8_OS_NETBSD || V8_OS_OPENBSD || \
-     (V8_OS_LINUX && V8_LIBC_GLIBC))
+     (V8_OS_LINUX && V8_LIBC_GLIBC) || V8_OS_HAIKU)
   // On Free/Net/OpenBSD and Linux with glibc we can change the time
   // source for pthread_cond_timedwait() to use the monotonic clock.
   pthread_condattr_t attr;
@@ -79,7 +79,7 @@ bool ConditionVariable::WaitFor(Mutex* mutex, const TimeDelta& rel_time) {
       &native_handle_, &mutex->native_handle(), &ts);
 #else
 #if (V8_OS_FREEBSD || V8_OS_NETBSD || V8_OS_OPENBSD || \
-     (V8_OS_LINUX && V8_LIBC_GLIBC))
+     (V8_OS_LINUX && V8_LIBC_GLIBC) || V8_OS_HAIKU)
   // On Free/Net/OpenBSD and Linux with glibc we can change the time
   // source for pthread_cond_timedwait() to use the monotonic clock.
   result = clock_gettime(CLOCK_MONOTONIC, &ts);

@@ -13,7 +13,7 @@
 #include <signal.h>
 #include <sys/time.h>
 
-#if !V8_OS_QNX && !V8_OS_NACL && !V8_OS_AIX
+#if !V8_OS_QNX && !V8_OS_NACL && !V8_OS_AIX && !V8_OS_HAIKU
 #include <sys/syscall.h>  // NOLINT
 #endif
 
@@ -22,7 +22,7 @@
 // OpenBSD doesn't have <ucontext.h>. ucontext_t lives in <signal.h>
 // and is a typedef for struct sigcontext. There is no uc_mcontext.
 #elif(!V8_OS_ANDROID || defined(__BIONIC_HAVE_UCONTEXT_T)) && \
-    !V8_OS_OPENBSD && !V8_OS_NACL
+    !V8_OS_OPENBSD && !V8_OS_NACL && !V8_OS_HAIKU
 #include <ucontext.h>
 #endif
 
@@ -483,7 +483,11 @@ void SignalHandler::HandleProfilerSignal(int signal, siginfo_t* info,
   state.pc = reinterpret_cast<Address>(mcontext.jmp_context.iar);
   state.sp = reinterpret_cast<Address>(mcontext.jmp_context.gpr[1]);
   state.fp = reinterpret_cast<Address>(mcontext.jmp_context.gpr[31]);
-#endif  // V8_OS_AIX
+#elif V8_OS_HAIKU
+  state.pc = reinterpret_cast<Address>(mcontext.eip);
+  state.sp = reinterpret_cast<Address>(mcontext.esp);
+  state.fp = reinterpret_cast<Address>(mcontext.ebp);
+#endif  // V8_OS_HAIKU
 #endif  // USE_SIMULATOR
   sampler->SampleStack(state);
 }

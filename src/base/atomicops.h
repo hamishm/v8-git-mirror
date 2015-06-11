@@ -162,7 +162,8 @@ Atomic64 Release_Load(volatile const Atomic64* ptr);
 
 // On some platforms we need additional declarations to make
 // AtomicWord compatible with our other Atomic* types.
-#if defined(__APPLE__) || defined(__OpenBSD__) || defined(V8_OS_AIX)
+#if defined(__APPLE__) || defined(__OpenBSD__) || defined(V8_OS_AIX) \
+    || defined(V8_OS_HAIKU)
 #include "src/base/atomicops_internals_atomicword_compat.h"
 #endif
 

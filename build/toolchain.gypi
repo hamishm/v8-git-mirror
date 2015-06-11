@@ -955,7 +955,7 @@
          ],
       }],
       ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris" \
-         or OS=="netbsd" or OS=="qnx" or OS=="aix"', {
+         or OS=="netbsd" or OS=="qnx" or OS=="aix" or OS=="haiku"', {
         'conditions': [
           [ 'v8_no_strict_aliasing==1', {
             'cflags': [ '-fno-strict-aliasing' ],
@@ -1011,7 +1011,7 @@
         },
         'conditions': [
           ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="netbsd" or \
-            OS=="qnx" or OS=="aix"', {
+            OS=="qnx" or OS=="aix" or OS=="haiku"', {
             'cflags!': [
               '-O3',
               '-O2',
@@ -1065,7 +1065,7 @@
         },
         'conditions': [
           ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="netbsd" or \
-            OS=="qnx" or OS=="aix"', {
+            OS=="qnx" or OS=="aix" or OS=="haiku"', {
             'cflags!': [
               '-O0',
               '-O1',
@@ -1114,7 +1114,7 @@
         ],
         'conditions': [
           ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="netbsd" or \
-            OS=="qnx" or OS=="aix"', {
+            OS=="qnx" or OS=="aix" or OS=="haiku"', {
             'cflags': [ '-Woverloaded-virtual', '<(wno_array_bounds)', ],
           }],
           ['OS=="linux" and v8_enable_backtrace==1', {
@@ -1182,7 +1182,7 @@
         },
         'conditions': [
           ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="netbsd" \
-            or OS=="aix"', {
+            or OS=="aix" or OS=="haiku"', {
             'cflags!': [
               '-Os',
             ],

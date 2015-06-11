@@ -75,6 +75,8 @@ def GuessOS():
     return 'netbsd'
   elif system == 'AIX':
     return 'aix'
+  elif system == 'Haiku':
+    return 'haiku'
   else:
     return None
 
@@ -95,7 +97,7 @@ def DefaultArch():
     return 'arm'
   elif (not machine) or (not re.match('(x|i[3-6])86$', machine) is None):
     return 'ia32'
-  elif machine == 'i86pc':
+  elif machine in ('i86pc', 'BePC'):
     return 'ia32'
   elif machine == 'x86_64':
     return 'ia32'

@@ -55,7 +55,11 @@
 #include <sys/prctl.h>  // NOLINT, for prctl
 #endif
 
-#if !defined(V8_OS_NACL) && !defined(_AIX)
+#if V8_OS_HAIKU
+#include <OS.h>
+#endif
+
+#if !defined(V8_OS_NACL) && !defined(_AIX) && !defined(V8_OS_HAIKU)
 #include <sys/syscall.h>
 #endif
 
@@ -333,6 +337,8 @@ int OS::GetCurrentThreadId() {
   return static_cast<int>(thread_self());
 #elif V8_OS_SOLARIS
   return static_cast<int>(pthread_self());
+#elif V8_OS_HAIKU
+  return static_cast<int>(find_thread(NULL));
 #else
   return static_cast<int>(reinterpret_cast<intptr_t>(pthread_self()));
 #endif

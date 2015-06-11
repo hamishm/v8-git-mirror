@@ -53,7 +53,8 @@
         'variables': {
           'conditions': [
             ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or \
-               OS=="netbsd" or OS=="mac" or OS=="qnx" or OS=="aix"', {
+               OS=="netbsd" or OS=="mac" or OS=="qnx" or OS=="aix" or \
+               OS=="haiku"', {
               # This handles the Unix platforms we generally deal with.
               # Anything else gets passed through, which probably won't work
               # very well; such hosts should pass an explicit target_arch
@@ -61,7 +62,7 @@
               'host_arch%': '<!pymod_do_main(detect_v8_host_arch)',
             }, {
               # OS!="linux" and OS!="freebsd" and OS!="openbsd" and
-              # OS!="netbsd" and OS!="mac" and OS!="aix"
+              # OS!="netbsd" and OS!="mac" and OS!="aix" and OS!="haiku"
               'host_arch%': 'ia32',
             }],
           ],
@@ -453,7 +454,7 @@
       },  # target_defaults
     }],  # OS=="mac"
     ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris" \
-       or OS=="netbsd" or OS=="aix"', {
+       or OS=="netbsd" or OS=="aix" or OS=="haiku"', {
       'target_defaults': {
         'cflags': [
           '-Wall',
@@ -473,6 +474,10 @@
         ],
         'ldflags': [ '-pthread', ],
         'conditions': [
+          [ 'OS=="haiku"', {
+            'cflags!': [ '-pthread' ],
+            'ldflags!': [ '-pthread' ],
+          }],
           [ 'clang==1 and (v8_target_arch=="x64" or v8_target_arch=="arm64")', {
             'cflags': [ '-Wshorten-64-to-32' ],
           }],

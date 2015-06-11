@@ -1558,6 +1558,17 @@
             '../../src/base/platform/platform-posix.cc'
           ]},
         ],
+        ['OS=="haiku"', {
+            'link_settings': {
+              'libraries': [
+                '-lnetwork',
+            ]},
+            'sources': [
+              '../../src/base/platform/platform-haiku.cc',
+              '../../src/base/platform/platform-posix.cc',
+            ],
+          }
+        ],
         ['OS=="win"', {
           'defines': [
             '_CRT_RAND_S'  # for rand_s()
